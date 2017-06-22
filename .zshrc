@@ -200,10 +200,7 @@ source $ZPLUG_HOME/init.zsh
 zplug "plugins/brew", from:oh-my-zsh, defer:1
 zplug "plugins/git", from:oh-my-zsh, defer:1
 zplug "plugins/npm", from:oh-my-zsh, defer:1
-# zplug "plugins/fabric", from:oh-my-zsh, nice:1
-# zplug "plugins/git-hubflow", from:oh-my-zsh, nice:1
-# zplug "plugins/git-flow", from:oh-my-zsh, nice:1
-# zplug "plugins/osx", from:oh-my-zsh, nice:1, if:"[[ $OSTYPE == *darwin* ]]"
+
 # Theme
 # https://github.com/sindresorhus/pure
 zplug "mafredri/zsh-async", from:github
