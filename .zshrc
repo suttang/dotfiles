@@ -24,11 +24,6 @@ alias gc="git commit"
 alias gd="git diff"
 alias go="git checkout "
 
-# Completion configuration
-# zplugが読み込むためコメントアウト
-# autoload -U compinit
-# compinit -c
-
 # Move directory from directory name
 setopt AUTO_CD
 cdpath=(.. ~ /data/works/workspace)
