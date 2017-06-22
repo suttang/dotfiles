@@ -14,7 +14,7 @@ export PATH=$ANDROID_HOME/tools:$PATH
 export PATH=$ANDROID_HOME/platform-tools:$PATH
 
 # Alias settings
-alias ll="ls -l"
+alias ll="ls -lG"
 alias where="command -v"
 alias su="su -l"
 alias gs="git status "
