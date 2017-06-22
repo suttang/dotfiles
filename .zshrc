@@ -162,12 +162,6 @@ fpath=("$HOME/bin/zsh-completions/src" $fpath)
 export NODE_PATH=$NODE_PATH:./
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 
-##############################
-# direnv
-##############################
-# export EDITOR=atom
-# eval "$(direnv hook zsh)"
-
 
 ##############################
 # Google cloud SDK
