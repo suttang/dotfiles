@@ -163,15 +163,6 @@ export NODE_PATH=$NODE_PATH:./
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 
 ##############################
-# Python
-# http://qiita.com/nakazonor/items/258496fc442f7937c478
-##############################
-# PYENV_ROOT=~/.pyenv
-# export PATH=$PATH:$PYENV_ROOT/bin
-# eval "$(pyenv init -)"
-# eval "$(pyenv virtualenv-init -)"
-
-##############################
 # direnv
 ##############################
 # export EDITOR=atom
