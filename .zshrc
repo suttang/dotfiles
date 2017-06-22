@@ -218,8 +218,6 @@ fi
 #   zprof | less
 # fi
 
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # # The next line updates PATH for the Google Cloud SDK.
 # if [ -f '/Users/suttang/bin/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/suttang/bin/google-cloud-sdk/path.zsh.inc'; fi
 
