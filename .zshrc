@@ -78,18 +78,6 @@ setopt auto_pushd
 # Make sure propt is able to be generated properly.
 setopt prompt_subst
 
-##############################
-# PROMPT
-##############################
-# https://www.alexscotton.com/post/a-modular-responsive-zsh-theme-and-some-bonus-unix-commands
-# https://gist.github.com/smileart/3750104
-# https://github.com/unixorn/awesome-zsh-plugins
-# https://github.com/caiogondim/bullet-train-oh-my-zsh-theme
-# autoload colors
-# colors
-# PROMPT="%{${fg[blue]}%}[%n@%m] %(!.#.$) %{${reset_color}%}"
-# PROMPT2="%{${fg[blue]}%}%_> %{${reset_color}%}"
-# SPROMPT="%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
 
 ##############################
 # history
