@@ -152,16 +152,14 @@ fpath=("$HOME/bin/zsh-completions/src" $fpath)
 
 ##############################
 # phpbrew
-# TOO HEAVY なため不要
 ###############################
-# source $HOME/.phpbrew/bashrc
+source $HOME/.phpbrew/bashrc
 
 ##############################
 # Node.js
 ##############################
 export NODE_PATH=$NODE_PATH:./
 export PATH=$HOME/.nodebrew/current/bin:$PATH
-
 
 ##############################
 # Google cloud SDK
@@ -171,7 +169,6 @@ if [ -f "$HOME/bin/google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/bin/goog
 
 # The next line enables shell command completion for gcloud.
 if [ -f "$HOME/bin/google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/bin/google-cloud-sdk/completion.zsh.inc"; fi
-
 
 ##############################
 # zplug
