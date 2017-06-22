@@ -177,6 +177,17 @@ export PATH=$HOME/.nodebrew/current/bin:$PATH
 # export EDITOR=atom
 # eval "$(direnv hook zsh)"
 
+
+##############################
+# Google cloud SDK
+##############################
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "$HOME/bin/google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/bin/google-cloud-sdk/path.zsh.inc"; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f "$HOME/bin/google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/bin/google-cloud-sdk/completion.zsh.inc"; fi
+
+
 ##############################
 # zplug
 ##############################
@@ -217,9 +228,3 @@ fi
 # if type zprof > /dev/null 2>&1; then
 #   zprof | less
 # fi
-
-# # The next line updates PATH for the Google Cloud SDK.
-# if [ -f '/Users/suttang/bin/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/suttang/bin/google-cloud-sdk/path.zsh.inc'; fi
-
-# # The next line enables shell command completion for gcloud.
-# if [ -f '/Users/suttang/bin/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/suttang/bin/google-cloud-sdk/completion.zsh.inc'; fi
