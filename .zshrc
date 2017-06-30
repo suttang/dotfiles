@@ -136,7 +136,7 @@ fpath=("$HOME/bin/zsh-completions/src" $fpath)
 ##############################
 # phpbrew
 ###############################
-source $HOME/.phpbrew/bashrc
+# source $HOME/.phpbrew/bashrc
 
 ##############################
 # Node.js
