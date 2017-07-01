@@ -26,7 +26,7 @@ alias go="git checkout "
 
 # Move directory from directory name
 setopt AUTO_CD
-cdpath=(.. ~ /data/works/workspace)
+cdpath=(.. ~ ~/workspace)
 
 # Command correct edition before each completion attempt
 setopt correct
