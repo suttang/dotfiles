@@ -13,7 +13,7 @@ module.exports = {
     cursorShape: 'BLOCK',
 
     // color of the text
-    foregroundColor: '#fff',
+    foregroundColor: '#eee',
 
     // terminal background color
     backgroundColor: '#282A36',
@@ -86,9 +86,8 @@ module.exports = {
   //   `hyperpower`
   //   `@company/project`
   //   `project#1.0.1`
-  plugins: [
-    'hyper-statusline',
-  ],
+  // plugins: ['hyper-statusline', "hypercwd"],
+  plugins: ["hypercwd"],
 
   // in development, you can create a directory under
   // `~/.hyperterm_plugins/local/` and include it here
