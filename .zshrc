@@ -17,12 +17,6 @@ export PATH=$ANDROID_HOME/platform-tools:$PATH
 alias ll="ls -lG"
 alias where="command -v"
 alias su="su -l"
-alias gs="git status "
-alias ga="git add "
-alias gb="git branch "
-alias gc="git commit"
-alias gd="git diff"
-alias go="git checkout "
 
 # Move directory from directory name
 setopt AUTO_CD
@@ -77,11 +71,26 @@ setopt prompt_subst
 ##############################
 # history
 ##############################
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey "^P" history-beginning-search-backward-end
-bindkey "^N" history-beginning-search-forward-end
+# autoload history-search-end
+# zle -N history-beginning-search-backward-end history-search-end
+# zle -N history-beginning-search-forward-end history-search-end
+# bindkey "^P" history-beginning-search-backward-end
+# bindkey "^N" history-beginning-search-forward-end
+
+# 履歴ファイルの保存先
+export HISTFILE=${HOME}/.zsh_history
+
+# メモリに保存される履歴の件数
+export HISTSIZE=1000
+
+# 履歴ファイルに保存される履歴の件数
+export SAVEHIST=100000
+
+# 重複を記録しない
+setopt hist_ignore_dups
+
+# 開始と終了を記録
+setopt EXTENDED_HISTORY
 
 
 #色の定義
@@ -134,6 +143,11 @@ zstyle ':completion:*' group-name ''
 fpath=("$HOME/bin/zsh-completions/src" $fpath)
 
 ##############################
+# direnv 
+###############################
+eval "$(direnv hook zsh)"
+
+##############################
 # phpbrew
 ###############################
 # source $HOME/.phpbrew/bashrc
@@ -145,14 +159,21 @@ export NODE_PATH=$NODE_PATH:./
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 
 ##############################
+# Python
+##############################
+# To create virtualenv in the project dir (Pipenv)
+export PIPENV_VENV_IN_PROJECT=1
+
+##############################
+# golang
+##############################
+export GOPATH=$HOME/go
+export GOBIN=$HOME/go/bin
+export PATH=$PATH:$GOBIN
+
+##############################
 # Google cloud SDK
 ##############################
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "$HOME/bin/google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/bin/google-cloud-sdk/path.zsh.inc"; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f "$HOME/bin/google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/bin/google-cloud-sdk/completion.zsh.inc"; fi
-
 ##############################
 # zplug
 ##############################
@@ -170,6 +191,11 @@ zplug "plugins/npm", from:oh-my-zsh, defer:1
 # https://github.com/sindresorhus/pure
 zplug "mafredri/zsh-async", from:github
 zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+
+# Type completion
+zplug "zsh-users/zsh-autosuggestions"
+
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
 # zplug check returns true if all packages are installed
 # Therefore, when it returns false, run zplug install
@@ -190,3 +216,26 @@ fi
 # if type zprof > /dev/null 2>&1; then
 #   zprof | less
 # fi
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/takahiro.suzuki/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/takahiro.suzuki/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/takahiro.suzuki/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/takahiro.suzuki/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+
+# Init function
+function init() {
+    if [ "$1" = "direnv" ]; then
+        echo 'layout_pipenv' > .envrc
+        direnv allow
+    elif [ "$1" = "pipenv" ]; then
+        if [ "$2" = "two" ]; then
+            pipenv --two
+        else
+            pipenv --three
+        fi
+        echo 'layout_pipenv' > .envrc
+        direnv allow
+    fi
+}
