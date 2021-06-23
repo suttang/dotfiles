@@ -13,6 +13,10 @@ export ANDROID_HOME="$HOME/Library/Android/sdk"
 export PATH=$ANDROID_HOME/tools:$PATH
 export PATH=$ANDROID_HOME/platform-tools:$PATH
 
+# ESP32 (esp-idf)
+# export IDF_PATH="$HOME/esp/esp-idf"
+# . $HOME/esp/esp-idf/export.sh
+
 # Alias settings
 alias ll="ls -lG"
 alias where="command -v"
@@ -217,12 +221,6 @@ fi
 #   zprof | less
 # fi
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/takahiro.suzuki/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/takahiro.suzuki/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/takahiro.suzuki/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/takahiro.suzuki/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
-
 
 # Init function
 function init() {
@@ -239,3 +237,15 @@ function init() {
         direnv allow
     fi
 }
+
+# ssh config complement
+function _ssh {
+    compadd `fgrep 'Host ' ~/.ssh/config | awk '{print $2}' | sort`;
+}
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/takahiro.suzuki/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/takahiro.suzuki/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/takahiro.suzuki/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/takahiro.suzuki/google-cloud-sdk/completion.zsh.inc'; fi
+
