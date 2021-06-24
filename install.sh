@@ -17,3 +17,9 @@ if [ -e ~/.hyper.js ]; then
     rm ~/.hyper.js
 fi
 ln -s $(pwd)/.hyper.js ~/.hyper.js
+
+# .tmux.conf
+if [ -e ~/.tmux.conf ]; then
+    rm ~/.tmux.conf
+fi
+ln -s $(pwd)/.tmux.conf ~/.tmux.conf
