@@ -1,251 +1,85 @@
-# FOR DEBUG
-# zmodload zsh/zprof
-
-# Japanese language settings
 export LANG=ja_JP.UTF-8
-
-# Path settings
 export PATH="$HOME/bin:$PATH"
-export PATH="$HOME/.composer/vendor/bin:$PATH"
-
-# Android Studio
-export ANDROID_HOME="$HOME/Library/Android/sdk"
-export PATH=$ANDROID_HOME/tools:$PATH
-export PATH=$ANDROID_HOME/platform-tools:$PATH
-
-# ESP32 (esp-idf)
-# export IDF_PATH="$HOME/esp/esp-idf"
-# . $HOME/esp/esp-idf/export.sh
-
-# Alias settings
-alias ll="ls -lG"
-alias where="command -v"
-alias su="su -l"
-
-# Move directory from directory name
-setopt AUTO_CD
-cdpath=(.. ~ ~/workspace)
-
-# Command correct edition before each completion attempt
-setopt correct
-
-# Aliased ls needs if file/dir completions work
-setopt complete_aliases
-
-# 語の途中でもカーソル位置で補完
-setopt complete_in_word
-
-# 日本語ファイル名等8ビットを通す
-setopt print_eight_bit
-
-# 拡張グロブで補完(~とか^とか。例えばless *.txt~memo.txt ならmemo.txt 以外の *.txt にマッチ)
-# setopt extended_glob
-
-# 明確なドットの指定なしで.から始まるファイルをマッチ
-# setopt globdots
-
-# No remove postfix slash of command line
-setopt noautoremoveslash
-
-# ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
-setopt auto_param_slash
 
 # ファイル名の展開でディレクトリにマッチした場合 末尾に / を付加
 setopt mark_dirs
-
-# 補完候補一覧でファイルの種別を識別マーク表示 (訳注:ls -F の記号)
-setopt list_types
-
-# 補完キー連打で順に補完候補を自動で補完
-# setopt auto_menu
-
+# 重複を記録しない
+setopt hist_ignore_dups
+# 重複するコマンドは古い法を削除する
+setopt hist_ignore_all_dups
+# Command correct edition before each completion attempt
+setopt correct
+# Aliased ls needs if file/dir completions work
+setopt complete_aliases
+# 語の途中でもカーソル位置で補完
+setopt complete_in_word
+# ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
+setopt auto_param_slash
+# No remove postfix slash of command line
+setopt noautoremoveslash
 # コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
 setopt magic_equal_subst
+# タブ・ウィンドウ間で履歴を共有する
+setopt share_history
+# 補完候補一覧でファイルの種別を識別マーク表示 (訳注:ls -F の記号)
+setopt list_types
+# 日本語ファイル名等8ビットを通す
+setopt print_eight_bit
 
-# No beep sound when complete list displayed
-setopt nolistbeep
-
-# Display cd histories
-setopt auto_pushd
-
-# Make sure propt is able to be generated properly.
-setopt prompt_subst
-
-
-##############################
-# history
-##############################
-# autoload history-search-end
-# zle -N history-beginning-search-backward-end history-search-end
-# zle -N history-beginning-search-forward-end history-search-end
-# bindkey "^P" history-beginning-search-backward-end
-# bindkey "^N" history-beginning-search-forward-end
+# Alias settings
+alias ll="ls -lG"
+# alias where="command -v"
+# alias su="su -l"
 
 # 履歴ファイルの保存先
 export HISTFILE=${HOME}/.zsh_history
-
 # メモリに保存される履歴の件数
-export HISTSIZE=1000
-
+export HISTSIZE=10000
 # 履歴ファイルに保存される履歴の件数
 export SAVEHIST=100000
 
-# 重複を記録しない
-setopt hist_ignore_dups
+export PATH="/Users/suttang/.local/bin:$PATH"
 
-# 開始と終了を記録
-setopt EXTENDED_HISTORY
+# For complement
+autoload -U compinit
+compinit
+## ssh config complement
+function _ssh { compadd `fgrep 'Host ' ~/.ssh/config | awk '{print $2}' | sort`; }
 
+## git
+source ~/.zsh/git-prompt.sh
+fpath=(~/.zsh $fpath)
+zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
+autoload -Uz compinit && compinit
 
-#色の定義
-# http://voidy21.hatenablog.jp/entry/20090902/1251918174
-# https://h2ham.net/zsh-prompt-color
-# http://futurismo.biz/archives/1363
-# http://qiita.com/syui/items/ed2d36698a5cc314557d
-local DEFAULT=$'%{\e[m%}'$
-local RED=$'%{\e[1;31m%}'$
-local GREEN=$'%{\e[1;32m%}'$
-local YELLOW=$'%{\e[1;33m%}'
-local BLUE=$'%{\e[1;34m%}'$
-local PURPLE=$'%{\e[1;35m%}'$
-local LIGHT_BLUE=$'%{\e[1;36m%}'$
-local WHITE=$'%{\e[1;37m%}'$
-
-
-##############################
-# zstyle
-##############################
-# 補間をカーソルキーで選択できるようにする
-zstyle ':completion:*:default' menu select=2
-
-zstyle ':completion:*' list-separator '-->'
-zstyle ':completion:*' verbose yes
-zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
-zstyle ':completion:*:messages' format $YELLOW'%d'$DEFAULT
-zstyle ':completion:*:warnings' format $RED'No matches for:'$YELLOW' %d'$DEFAULT
-zstyle ':completion:*:descriptions' format $YELLOW'completing %B%d%b'$DEFAULT
-zstyle ':completion:*:corrections' format $YELLOW'%B%d '$RED'(errors: %e)%b'$DEFAULT
-zstyle ':completion:*:options' description 'yes'
-
-# カレントディレクトリに候補がない場合のみ cdpath 上のディレクトリを候補に出す
-zstyle ':completion:*:cd:*' tag-order local-directories path-directories
-
-#cd は親ディレクトリからカレントディレクトリを選択しないので表示させないようにする (例: cd ../<TAB>):
-zstyle ':completion:*:cd:*' ignore-parents parent pwd
-
-#LS_COLORSを設定しておく
-export LS_COLORS='di=36:ln=35:so=32:pi=33:ex=31:bd=46;36:cd=43;36:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-
-#ファイル補完候補に色を付ける
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-
-# グループ名に空文字列を指定すると，マッチ対象のタグ名がグループ名に使われる。
-# したがって，すべての マッチ種別を別々に表示させたいなら以下のようにする
-zstyle ':completion:*' group-name ''
-
-# brew等後入れのライブラリも補間を可能にする
-fpath=("$HOME/bin/zsh-completions/src" $fpath)
-
-##############################
 # direnv 
-###############################
 eval "$(direnv hook zsh)"
 
-##############################
-# phpbrew
-###############################
-# source $HOME/.phpbrew/bashrc
-
-##############################
-# Node.js
-##############################
-export NODE_PATH=$NODE_PATH:./
-export PATH=$HOME/.nodebrew/current/bin:$PATH
-
-##############################
-# Python
-##############################
-# To create virtualenv in the project dir (Pipenv)
-export PIPENV_VENV_IN_PROJECT=1
-
-##############################
-# golang
-##############################
-export GOPATH=$HOME/go
-export GOBIN=$HOME/go/bin
-export PATH=$PATH:$GOBIN
-
-##############################
-# Google cloud SDK
-##############################
-##############################
-# zplug
-##############################
-# http://qiita.com/b4b4r07/items/cd326cd31e01955b788b
-# https://github.com/zplug/zplug
-# http://post.simplie.jp/posts/59
-export ZPLUG_HOME=/usr/local/opt/zplug
-source $ZPLUG_HOME/init.zsh
-
-zplug "plugins/brew", from:oh-my-zsh, defer:1
-zplug "plugins/git", from:oh-my-zsh, defer:1
-zplug "plugins/npm", from:oh-my-zsh, defer:1
-
-# Theme
-# https://github.com/sindresorhus/pure
-zplug "mafredri/zsh-async", from:github
-zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
-
-# Type completion
-zplug "zsh-users/zsh-autosuggestions"
-
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-
-# zplug check returns true if all packages are installed
-# Therefore, when it returns false, run zplug install
-if ! zplug check; then
-    zplug install
+### Added by Zinit's installer
+if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
+    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+        print -P "%F{160}▓▒░ The clone has failed.%f%b"
 fi
 
-# source plugins and add commands to the PATH
-zplug load
+source "$HOME/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
-# zplug check returns true if the given repository exists
-if zplug check b4b4r07/enhancd; then
-    # setting if enhancd is available
-    export ENHANCD_FILTER=fzf-tmux
-fi
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zinit-zsh/z-a-rust \
+    zinit-zsh/z-a-as-monitor \
+    zinit-zsh/z-a-patch-dl \
+    zinit-zsh/z-a-bin-gem-node
 
-# FOR DEBUG
-# if type zprof > /dev/null 2>&1; then
-#   zprof | less
-# fi
+### End of Zinit's installer chunk
 
-
-# Init function
-function init() {
-    if [ "$1" = "direnv" ]; then
-        echo 'layout_pipenv' > .envrc
-        direnv allow
-    elif [ "$1" = "pipenv" ]; then
-        if [ "$2" = "two" ]; then
-            pipenv --two
-        else
-            pipenv --three
-        fi
-        echo 'layout_pipenv' > .envrc
-        direnv allow
-    fi
-}
-
-# ssh config complement
-function _ssh {
-    compadd `fgrep 'Host ' ~/.ssh/config | awk '{print $2}' | sort`;
-}
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/takahiro.suzuki/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/takahiro.suzuki/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/takahiro.suzuki/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/takahiro.suzuki/google-cloud-sdk/completion.zsh.inc'; fi
-
+zinit light zsh-users/zsh-autosuggestions
+zinit light zdharma/fast-syntax-highlighting
+zinit load zdharma/history-search-multi-word
+zinit ice pick"async.zsh" src"pure.zsh"
+zinit light sindresorhus/pure
